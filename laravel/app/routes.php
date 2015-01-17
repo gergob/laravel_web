@@ -11,7 +11,15 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+
+Route::get('/welcome', array( 
+					'as' => 'welcome', 
+					'uses'=>'ContactController@index'));
+
+Route::get('/contacts', array( 
+					'as'=>'contacts',
+					'uses'=>'ContactController@showAll'));
+
+Route::get('/contacts/add', array( 
+					'as'=>'add_contacts',
+					'uses'=>'ContactController@create'));
