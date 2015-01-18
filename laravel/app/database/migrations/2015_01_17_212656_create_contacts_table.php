@@ -25,6 +25,7 @@ class CreateContactsTable extends Migration {
 				$table->string('work_phone', 20);
 				$table->string('home_phone', 20);
 				$table->string('mobile_phone', 20);
+				$table->timestamps();				
 			});
 		}
 	}
