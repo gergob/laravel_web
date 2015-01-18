@@ -4,7 +4,8 @@
 
 <h1> Add Contact </h1>
 
-<form class="form-horizontal">
+{{ Form::open(array('route' => 'add_contacts','class'=>'form-horizontal')) }}
+
   <div class="form-group">
     <label for="first_name" class="col-sm-2 control-label">First Name</label>
     <div class="col-sm-5">
@@ -34,6 +35,13 @@
   </div>
 
   <div class="form-group">
+    <label for="email" class="col-sm-2 control-label">Email</label>
+     <div class="col-sm-5">
+    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email...">
+    </div>
+  </div>
+
+  <div class="form-group">
     <label for="work_phone" class="col-sm-2 control-label">Work Phone</label>
      <div class="col-sm-5">
     <input type="tel" class="form-control" id="work_phone" name="work_phone" placeholder="Enter Work Phone Number...">
@@ -54,9 +62,8 @@
     </div>
   </div>
 
+  <button type="submit" class="btn btn-primary">Save Contact</button>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
+ {{ Form::close() }}
 
 @stop

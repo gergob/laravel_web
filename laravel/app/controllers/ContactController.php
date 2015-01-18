@@ -31,7 +31,20 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$new_contact = new Contact;
+
+		$new_contact->first_name = Input::get('first_name');
+		$new_contact->last_name = Input::get('last_name');
+		$new_contact->birthday = Input::get('birthday');
+		$new_contact->email = Input::get('email');
+		$new_contact->website = Input::get('website');
+		$new_contact->work_phone = Input::get('work_phone');
+		$new_contact->home_phone = Input::get('home_phone');
+		$new_contact->mobile_phone = Input::get('mobile_phone');
+
+		$new_contact->save();
+
+		return Redirect::route('contacts');
 	}
 
 

@@ -23,3 +23,6 @@ Route::get('/contacts', array(
 Route::get('/contacts/add', array( 
 					'as'=>'add_contacts',
 					'uses'=>'ContactController@create'));
+Route::post('/contacts/add', array( 
+					'as'=>'add_contacts',
+					'uses'=>'ContactController@store'));
