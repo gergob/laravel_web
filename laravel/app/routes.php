@@ -12,7 +12,7 @@
 */
 
 
-Route::get('/welcome', array( 
+Route::get('/', array( 
 					'as' => 'welcome', 
 					'uses'=>'ContactController@index'));
 
