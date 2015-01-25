@@ -4,6 +4,11 @@
 
 <h1> Add Contact </h1>
 
+@foreach ($errors->all('<div class="alert alert-danger" role="alert">:message</div>') as $message)
+   {{$message}}
+@endforeach
+
+
 {{ Form::open(array('route' => 'add_contacts','class'=>'form-horizontal')) }}
 
   <div class="form-group">

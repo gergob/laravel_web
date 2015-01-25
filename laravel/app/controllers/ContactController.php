@@ -31,6 +31,25 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
+		//
+		//do validation
+		//
+		$validation_rules = array(
+			'first_name' => array('required','min:3', 'max:200'),
+			'last_name' => array('required','min:3', 'max:200'),
+			'email' => array('required','min:5', 'max:200')
+		);
+
+		$validator = Validator::make(Input::all(), $validation_rules);
+
+		if($validator->fails()) {
+			return Redirect::route('add_contacts')->withErrors($validator)->withInput();
+		}
+
+		//
+		// store the contact
+		//
+
 		$new_contact = new Contact;
 
 		$new_contact->first_name = Input::get('first_name');
@@ -45,6 +64,7 @@ class ContactController extends \BaseController {
 		$new_contact->save();
 
 		return Redirect::route('contacts');
+		
 	}
 
 
