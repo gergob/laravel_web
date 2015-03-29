@@ -27,6 +27,11 @@
             <li><a href={{ URL::route('add_contacts') }}>Add Contact</a></li>
             <li><a href={{ URL::route('contacts') }}>Contacts</a></li>
           </ul>
+          @if (Auth::check())
+            {{ Form::open(array('url' => 'logout', 'method'=>'post' ,'class'=>'navbar-form navbar-right')) }}
+              <button type="submit" class="btn btn-success">Logout</button>
+            {{ Form::close() }}
+          @endif
         </div>
       </div>
     </nav>

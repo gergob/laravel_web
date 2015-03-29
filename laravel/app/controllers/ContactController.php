@@ -9,7 +9,14 @@ class ContactController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('index');
+		if(Auth::check())
+		{
+			return View::make('index');
+		}
+		else 
+		{
+			return Redirect::to('login');
+		}
 	}
 
 
@@ -20,7 +27,14 @@ class ContactController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('add_contact');
+		if(Auth::check())
+		{
+			return View::make('add_contact');
+		}
+		else 
+		{
+			return Redirect::to('login');
+		}
 	}
 
 
@@ -31,40 +45,46 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
-		//do validation
-		//
-		$validation_rules = array(
-			'first_name' => array('required','min:3', 'max:200'),
-			'last_name' => array('required','min:3', 'max:200'),
-			'email' => array('required','min:5', 'max:200')
-		);
+		if(Auth::check())
+		{
+			//
+			//do validation
+			//
+			$validation_rules = array(
+				'first_name' => array('required','min:3', 'max:200'),
+				'last_name' => array('required','min:3', 'max:200'),
+				'email' => array('required','min:5', 'max:200')
+			);
 
-		$validator = Validator::make(Input::all(), $validation_rules);
+			$validator = Validator::make(Input::all(), $validation_rules);
 
-		if($validator->fails()) {
-			return Redirect::route('add_contacts')->withErrors($validator)->withInput();
+			if($validator->fails()) {
+				return Redirect::route('add_contacts')->withErrors($validator)->withInput();
+			}
+
+			//
+			// store the contact
+			//
+
+			$new_contact = new Contact;
+
+			$new_contact->first_name = Input::get('first_name');
+			$new_contact->last_name = Input::get('last_name');
+			$new_contact->birthday = Input::get('birthday');
+			$new_contact->email = Input::get('email');
+			$new_contact->website = Input::get('website');
+			$new_contact->work_phone = Input::get('work_phone');
+			$new_contact->home_phone = Input::get('home_phone');
+			$new_contact->mobile_phone = Input::get('mobile_phone');
+
+			$new_contact->save();
+
+			return Redirect::route('contacts');
 		}
-
-		//
-		// store the contact
-		//
-
-		$new_contact = new Contact;
-
-		$new_contact->first_name = Input::get('first_name');
-		$new_contact->last_name = Input::get('last_name');
-		$new_contact->birthday = Input::get('birthday');
-		$new_contact->email = Input::get('email');
-		$new_contact->website = Input::get('website');
-		$new_contact->work_phone = Input::get('work_phone');
-		$new_contact->home_phone = Input::get('home_phone');
-		$new_contact->mobile_phone = Input::get('mobile_phone');
-
-		$new_contact->save();
-
-		return Redirect::route('contacts');
-		
+		else 
+		{
+			return Redirect::to('login');
+		}
 	}
 
 
@@ -81,8 +101,15 @@ class ContactController extends \BaseController {
 
 	public function showAll()
 	{
-		$all_contacts = Contact::all();
-		return View::make('contacts')->with('all_contacts', $all_contacts);	
+		if(Auth::check())
+		{
+			$all_contacts = Contact::all();
+			return View::make('contacts')->with('all_contacts', $all_contacts);	
+		}
+		else 
+		{
+			return Redirect::route('login');
+		}
 	}
 
 

@@ -11,6 +11,18 @@
 |
 */
 
+Route::get('/login', array(
+						'as'=> 'login',
+						'uses' => 'LoginController@getLogin'));
+
+Route::post('/logout', array(
+						'as'=> 'logout',
+						'uses' => 'LoginController@logout'));
+
+Route::post('/login', array(
+						'as' => 'login',
+						'uses' => 'LoginController@processLogin'));
+
 
 Route::get('/', array( 
 					'as' => 'welcome', 
